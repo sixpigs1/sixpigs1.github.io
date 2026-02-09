@@ -1,0 +1,49 @@
+---
+import { ui } from '@/data/i18n';
+
+const currentYear = new Date().getFullYear();
+const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <p class="footer-text">
+        © {currentYear} Zewei Ye. All rights reserved.
+      </p>
+      <p class="footer-text footer-updated">
+        {ui.footer.lastUpdated}: {currentDate}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg) 0;
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .footer-text {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

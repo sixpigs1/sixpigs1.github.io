@@ -1,0 +1,67 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Card from '@/components/Card.astro';
+import { getPublicationsByType } from '@/data/publications';
+import { ui } from '@/data/i18n';
+
+const preprints = getPublicationsByType('preprint');
+const published = getPublicationsByType('publication');
+
+// Helper function to underline author name
+function formatAuthors(authors: string): string {
+  return authors.replace(/Zewei Ye/g, '<u>Zewei Ye</u>');
+}
+---
+
+<BaseLayout title="Preprints / Publications - Zewei Ye">
+  <h1 class="page-title">{ui.publications.title}</h1>
+
+  <!-- Preprints Section -->
+  {preprints.length > 0 && (
+    <section class="section">
+      <h2 class="section-title">{ui.publications.preprints}</h2>
+      {preprints.map(pub => (
+        <Card
+          title={pub.title}
+          authors={pub.authors}
+          meta={pub.status.en}
+          description={pub.abstract.en}
+          image={pub.image}
+          links={[
+            pub.paperLink && { text: ui.publications.paper, url: pub.paperLink },
+            pub.codeLink && { text: ui.publications.code, url: pub.codeLink },
+          ].filter(Boolean)}
+        />
+      ))}
+    </section>
+  )}
+
+  <!-- Published Papers Section -->
+  {published.length > 0 && (
+    <section class="section">
+      <h2 class="section-title">{ui.publications.published}</h2>
+      {published.map(pub => (
+        <Card
+          title={pub.title}
+          authors={pub.authors}
+          meta={pub.status.en}
+          description={pub.abstract.en}
+          image={pub.image}
+          links={[
+            pub.paperLink && { text: ui.publications.paper, url: pub.paperLink },
+            pub.codeLink && { text: ui.publications.code, url: pub.codeLink },
+          ].filter(Boolean)}
+        />
+      ))}
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--color-border);
+  }
+</style>
