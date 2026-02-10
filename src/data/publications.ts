@@ -3,18 +3,13 @@
 export interface Publication {
     id: number;
     type: 'preprint' | 'publication';
+    tag: string;
     year: string;
     title: string;
     authors: string;
     venue?: string;
-    status: {
-        zh: string;
-        en: string;
-    };
-    abstract: {
-        zh: string;
-        en: string;
-    };
+    status?: string; // combined status/content
+    abstract?: string; // combined abstract
     image?: string;
     paperLink?: string;
     codeLink?: string;
@@ -25,48 +20,41 @@ export const publications: Publication[] = [
     {
         id: 1,
         type: 'preprint',
-        year: '2024',
-        title: 'Sample Paper Title: Vision-Language-Action Models for Robotic Manipulation',
-        authors: 'Zewei Ye, Author B, Author C',
-        status: {
-            zh: '预印本 — arXiv',
-            en: 'Preprint — arXiv',
-        },
-        abstract: {
-            zh: '这是一篇关于视觉-语言-动作模型用于机器人操作的示例论文。我们提出了一种新的方法来整合视觉、语言和动作信息,以改进机器人在复杂环境中的操作能力。实验结果表明我们的方法在多个基准测试中取得了显著的性能提升。',
-            en: 'This is a sample paper about Vision-Language-Action models for robotic manipulation. We propose a novel approach to integrate visual, linguistic, and action information to improve robot manipulation capabilities in complex environments. Experimental results demonstrate significant performance improvements on multiple benchmarks.',
-        },
+        tag: 'Preprint 2025',
+        year: '2025',
+        title: 'RoboFAC: A Comprehensive Framework for Robotic Failure Analysis and Correction',
+        authors: 'Weifeng Lu*, Minghao Ye*, Zewei Ye*, Ruihan Tao, Shuo Yang, Bo Zhao; * Equal Contribution',
+        status: 'Preprint — arXiv',
+        abstract: 'Vision-Language-Action (VLA) models have recently advanced robotic manipulation by translating natural-language instructions and image information into sequential control actions. However, these models often underperform in open-world scenarios, as they are predominantly trained on successful expert demonstrations and exhibit a limited capacity for failure recovery. In this work, we present a Robotic Failure Analysis and Correction (RoboFAC) framework to address this issue. Firstly, we construct RoboFAC dataset comprising 9,440 erroneous manipulation trajectories and 78,623 QA pairs across 16 diverse tasks and 53 scenes in both simulation and real-world environments. Leveraging our dataset, we develop RoboFAC model, which is capable of Task Understanding, Failure Analysis and Failure Correction. Experimental results demonstrate that the RoboFAC model outperforms GPT-4o by 34.1% on our evaluation benchmark. Furthermore, we integrate the RoboFAC model into a real-world VLA control pipeline as an external supervision providing correction instructions, yielding a 29.1% relative improvement on average on four real-world tasks. The results show that our RoboFAC framework effectively handles robotic failures and assists the VLA model in recovering from failures.',
         image: '/images/publications/sample1.jpg',
-        paperLink: 'https://arxiv.org/abs/placeholder',
-        codeLink: 'https://github.com/sixpigs1/sample-project',
+        paperLink: 'https://arxiv.org/abs/2505.12224',
+        codeLink: 'https://github.com/MINT-SJTU/RoboFAC',
     },
     {
         id: 2,
-        type: 'publication',
-        year: '2023',
-        title: 'Another Sample: Learning from Demonstrations for Robotic Tasks',
-        authors: 'Author A, Zewei Ye, Author C, Author D',
-        venue: 'ICRA 2023',
-        status: {
-            zh: '已发表 — ICRA 2023',
-            en: 'Published — ICRA 2023',
-        },
-        abstract: {
-            zh: '这是另一篇示例论文,研究从演示中学习机器人任务。我们开发了一个框架,使机器人能够通过观察人类演示来学习新技能。该方法在各种操作任务中表现出良好的泛化能力。',
-            en: 'This is another sample paper on learning robotic tasks from demonstrations. We develop a framework that enables robots to learn new skills by observing human demonstrations. The approach shows good generalization across various manipulation tasks.',
-        },
+        type: 'preprint',
+        tag: 'Preprint 2025',
+        year: '2025',
+        title: 'U-ARM : Ultra low-cost general teleoperation interface for robot manipulation',
+        authors: 'Yanwen Zou, Zhaoye Zhou, Chenyang Shi, Zewei Ye, Junda Huang, Yan Ding, Bo Zhao',
+        status: 'Preprint — arXiv',
+        abstract: 'We propose U-Arm, a low-cost and rapidly adaptable leader-follower teleoperation framework designed to interface with most of commercially available robotic arms. Our system supports teleoperation through three structurally distinct 3D-printed leader arms that share consistent control logic, enabling seamless compatibility with diverse commercial robot configurations. Compared with previous open-source leader-follower interfaces, we further optimized both the mechanical design and servo selection, achieving a bill of materials (BOM) cost of only $50.5 for the 6-DoF leader arm and $56.8 for the 7-DoF version. To enhance usability, we mitigate the common challenge in controlling redundant degrees of freedom by engineering methods mechanical and control optimizations. Experimental results demonstrate that U-Arm achieves 39% higher data collection efficiency and comparable task success rates across multiple manipulation scenarios compared with Joycon, another low-cost teleoperation interface. We have open-sourced all CAD models of three configs and also provided simulation support for validating teleoperation workflows. We also open-sourced real-world manipulation data collected with U-Arm. The project website is this https URL.',
         image: '/images/publications/sample2.jpg',
-        paperLink: 'https://example.com/paper',
-        codeLink: 'https://github.com/sixpigs1/sample-project2',
+        paperLink: 'https://arxiv.org/abs/2509.02437',
+        codeLink: 'https://github.com/MINT-SJTU/LeRobot-Anything-U-Arm',
     },
 ];
 
-// Helper function to get publications by type
+// Helper function to get publications by type (sorted by id descending)
 export function getPublicationsByType(type: 'preprint' | 'publication') {
-    return publications.filter(pub => pub.type === type);
+    return publications
+        .filter(pub => pub.type === type)
+        .sort((a, b) => b.id - a.id);
 }
 
-// Helper function to get recent publications for home page
+// Helper function to get recent publications for home page (sorted by id descending)
 export function getRecentPublications(limit: number = 3) {
-    return publications.slice(0, limit);
+    return [...publications]
+        .sort((a, b) => b.id - a.id)
+        .slice(0, limit);
 }

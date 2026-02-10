@@ -1,298 +1,345 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Card from '@/components/Card.astro';
-import { personalInfo, experiences } from '@/data/personal';
-import { getRecentPublications } from '@/data/publications';
-import { getSelectedAwards } from '@/data/awards';
-import { ui } from '@/data/i18n';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Card from "@/components/Card.astro";
+import { personalInfo, experiences } from "@/data/personal";
+import { publications } from "@/data/publications";
+import { awards } from "@/data/awards";
+import { ui } from "@/data/i18n";
 
-const recentPublications = getRecentPublications(3);
-const selectedAwards = getSelectedAwards(3);
+// Get all publications sorted by id descending
+const allPublications = [...publications].sort((a, b) => b.id - a.id);
+
+// Get all awards sorted by id descending
+const allAwards = [...awards].sort((a, b) => b.id - a.id);
+
+// Sort experiences by id descending
+const sortedExperiences = [...experiences].sort((a, b) => b.id - a.id);
 ---
 
 <BaseLayout title="Zewei Ye - Home">
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <div class="hero-image">
-        <img src={personalInfo.photo} alt={personalInfo.name.en} />
-      </div>
-      <div class="hero-text">
-        <h1 class="hero-name">
-          {personalInfo.name.en} 
-          <span class="hero-name-zh">({personalInfo.name.zh})</span>
-        </h1>
-        <p class="hero-title">{personalInfo.title.en}</p>
-        <p class="hero-affiliation">{personalInfo.affiliation.en}</p>
-        <div class="hero-research">
-          <span class="research-label">Research Interests:</span>
-          {personalInfo.research.en.map((topic, index) => (
-            <span class="research-tag">
-              {topic}{index < personalInfo.research.en.length - 1 ? ', ' : ''}
-            </span>
-          ))}
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src={personalInfo.photo} alt={personalInfo.name} />
+            </div>
+            <div class="hero-text">
+                <h1 class="hero-name">{personalInfo.name}</h1>
+                <p class="hero-title">{personalInfo.title}</p>
+                <p class="hero-affiliation">{personalInfo.affiliation}</p>
+                <div class="hero-research">
+                    <span class="research-label">Research Interests:</span>
+                    {
+                        personalInfo.research.map((topic, index) => (
+                            <span class="research-tag">
+                                {topic}
+                                {index < personalInfo.research.length - 1
+                                    ? ", "
+                                    : ""}
+                            </span>
+                        ))
+                    }
+                </div>
+                <div class="hero-links">
+                    <a href={`mailto:${personalInfo.email}`} class="hero-link">
+                        📧 Email
+                    </a>
+                    <a
+                        href={personalInfo.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hero-link"
+                    >
+                        💻 GitHub
+                    </a>
+                    <a
+                        href={personalInfo.scholar}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hero-link"
+                    >
+                        🎓 Google Scholar
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="hero-links">
-          <a href={`mailto:${personalInfo.email}`} class="hero-link">
-            📧 Email
-          </a>
-          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" class="hero-link">
-            💻 GitHub
-          </a>
-          <a href={personalInfo.scholar} target="_blank" rel="noopener noreferrer" class="hero-link">
-            🎓 Google Scholar
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- About Section -->
-  <section class="section">
-    <h2 class="section-title">{ui.home.about}</h2>
-    <p class="about-text">{personalInfo.about.en}</p>
-  </section>
+    <!-- About Section -->
+    <section class="section">
+        <h2 class="section-title">{ui.home.about}</h2>
+        <p class="about-text">{personalInfo.about}</p>
+    </section>
 
-  <!-- Experience Section -->
-  <section class="section">
-    <h2 class="section-title">{ui.home.experience}</h2>
-    <div class="compact-list">
-      {experiences.map(exp => (
-        <div class="compact-item">
-          <div class="experience-header">
-            <span class="experience-year">{exp.year}</span>
-            <strong class="experience-institution">{exp.institution.en}</strong>
-          </div>
-          <p class="experience-role">{exp.role.en}</p>
+    <!-- Experience Section -->
+    <section class="section">
+        <h2 class="section-title">{ui.home.experience}</h2>
+        <div class="compact-list">
+            {
+                sortedExperiences.map((exp) => (
+                    <div class="compact-item">
+                        <div class="experience-header">
+                            <span class="experience-year">{exp.year}</span>
+                            <strong class="experience-institution">
+                                {exp.institution}
+                            </strong>
+                        </div>
+                        <p class="experience-role">{exp.role}</p>
+                    </div>
+                ))
+            }
         </div>
-      ))}
-    </div>
-  </section>
+    </section>
 
-  <!-- Publications Section -->
-  <section class="section">
-    <h2 class="section-title">{ui.home.publications}</h2>
-    <div class="compact-list">
-      {recentPublications.map(pub => (
-        <div class="compact-item">
-          <p class="publication-item">
-            <span class="publication-year">[{pub.year}]</span>
-            <strong>{pub.title}</strong>
-            <br />
-            <span class="publication-authors">{pub.authors}</span>
-            {pub.paperLink && (
-              <>
-                {' '}
-                <a href={pub.paperLink} target="_blank" rel="noopener noreferrer">[Paper]</a>
-              </>
-            )}
-            {pub.codeLink && (
-              <>
-                {' '}
-                <a href={pub.codeLink} target="_blank" rel="noopener noreferrer">[Code]</a>
-              </>
-            )}
-          </p>
+    <!-- Publications Section -->
+    <section class="section">
+        <h2 class="section-title">{ui.home.publications}</h2>
+        <div class="compact-list">
+            {
+                allPublications.map((pub) => (
+                    <div class="compact-item">
+                        <p class="publication-item">
+                            <span class="publication-tag">[{pub.tag}]</span>
+                            <strong>{pub.title}</strong>
+                            <br />
+                            <span
+                                class="publication-authors"
+                                set:html={pub.authors.replace(
+                                    /Zewei Ye/g,
+                                    "<u>Zewei Ye</u>",
+                                )}
+                            />
+                            {pub.paperLink && (
+                                <>
+                                    {" "}
+                                    <a
+                                        href={pub.paperLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        [Paper]
+                                    </a>
+                                </>
+                            )}
+                            {pub.codeLink && (
+                                <>
+                                    {" "}
+                                    <a
+                                        href={pub.codeLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        [Code]
+                                    </a>
+                                </>
+                            )}
+                        </p>
+                    </div>
+                ))
+            }
         </div>
-      ))}
-    </div>
-    <a href="/publications" class="more-link">{ui.home.morePublications}</a>
-  </section>
+        <a href="/publications" class="more-link">{ui.home.morePublications}</a>
+    </section>
 
-  <!-- Selected Awards Section -->
-  <section class="section">
-    <h2 class="section-title">{ui.home.selectedAwards}</h2>
-    <div class="compact-list">
-      {selectedAwards.map(award => (
-        <div class="compact-item">
-          <p class="award-item">
-            <span class="award-year">[{award.year}]</span>
-            <strong>{award.name.en}</strong>
-            {award.name.zh && <span class="award-name-zh">({award.name.zh})</span>}
-            <span class="award-org"> — {award.organization.en}</span>
-          </p>
+    <!-- Awards Section -->
+    <section class="section">
+        <h2 class="section-title">{ui.home.selectedAwards}</h2>
+        <div class="compact-list">
+            {
+                allAwards.map((award) => (
+                    <div class="compact-item">
+                        <p class="award-item">
+                            <span class="award-year">[{award.year}]</span>
+                            <strong>{award.name}</strong>
+                            <span class="award-org">
+                                {" "}
+                                — {award.organization}
+                            </span>
+                        </p>
+                    </div>
+                ))
+            }
         </div>
-      ))}
-    </div>
-    <a href="/awards" class="more-link">{ui.home.moreAwards}</a>
-  </section>
+        <a href="/awards" class="more-link">{ui.home.moreAwards}</a>
+    </section>
 </BaseLayout>
 
 <style>
-  .hero-section {
-    margin-bottom: var(--spacing-xl);
-    padding: var(--spacing-lg) 0;
-  }
+    .hero-section {
+        margin-bottom: var(--spacing-xl);
+        padding: var(--spacing-lg) 0;
+    }
 
-  .hero-content {
-    display: flex;
-    gap: var(--spacing-xl);
-    align-items: flex-start;
-  }
-
-  .hero-image {
-    flex-shrink: 0;
-    width: 250px;
-    height: 250px;
-  }
-
-  .hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    background-color: #f5f5f5;
-  }
-
-  .hero-text {
-    flex: 1;
-  }
-
-  .hero-name {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-xs);
-  }
-
-  .hero-name-zh {
-    font-size: 1.8rem;
-    color: var(--color-text-light);
-    font-weight: 400;
-  }
-
-  .hero-title {
-    font-size: 1.2rem;
-    color: var(--color-text-light);
-    margin-bottom: var(--spacing-xs);
-  }
-
-  .hero-affiliation {
-    font-size: 1.1rem;
-    color: var(--color-text);
-    margin-bottom: var(--spacing-md);
-  }
-
-  .hero-research {
-    margin-bottom: var(--spacing-md);
-    line-height: 1.8;
-  }
-
-  .research-label {
-    font-weight: 600;
-    margin-right: var(--spacing-xs);
-  }
-
-  .research-tag {
-    color: var(--color-text);
-  }
-
-  .hero-links {
-    display: flex;
-    gap: var(--spacing-md);
-    flex-wrap: wrap;
-  }
-
-  .hero-link {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3em;
-  }
-
-  .hero-link:hover {
-    border-color: var(--color-accent);
-    text-decoration: none;
-  }
-
-  .about-text {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: var(--color-text);
-    white-space: pre-line;
-  }
-
-  .compact-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .compact-item {
-    /* No border, just spacing */
-  }
-
-  .experience-header {
-    margin-bottom: var(--spacing-xs);
-  }
-
-  .experience-year {
-    color: var(--color-accent);
-    font-weight: 600;
-    margin-right: var(--spacing-sm);
-  }
-
-  .experience-institution {
-    font-size: 1.1rem;
-  }
-
-  .experience-role {
-    color: var(--color-text-light);
-    margin-bottom: var(--spacing-xs);
-  }
-
-  .publication-item {
-    line-height: 1.8;
-  }
-
-  .publication-year {
-    color: var(--color-accent);
-    font-weight: 600;
-    margin-right: var(--spacing-xs);
-  }
-
-  .publication-authors {
-    color: var(--color-text-light);
-  }
-
-  .award-item {
-    line-height: 1.8;
-  }
-
-  .award-year {
-    color: var(--color-accent);
-    font-weight: 600;
-    margin-right: var(--spacing-xs);
-  }
-
-  .award-name-zh {
-    color: var(--color-text-light);
-    font-size: 0.95rem;
-  }
-
-  .award-org {
-    color: var(--color-text-light);
-  }
-
-  @media (max-width: 768px) {
     .hero-content {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+        display: flex;
+        gap: var(--spacing-xl);
+        align-items: flex-start;
     }
 
     .hero-image {
-      width: 200px;
-      height: 200px;
+        flex-shrink: 0;
+        width: 250px;
+        height: 250px;
     }
 
-    .hero-links {
-      justify-content: center;
+    .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        background-color: #f5f5f5;
+    }
+
+    .hero-text {
+        flex: 1;
+    }
+
+    .hero-name {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .hero-name-zh {
+        font-size: 1.8rem;
+        color: var(--color-text-light);
+        font-weight: 400;
+    }
+
+    .hero-title {
+        font-size: 1.2rem;
+        color: var(--color-text-light);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .hero-affiliation {
+        font-size: 1.1rem;
+        color: var(--color-text);
+        margin-bottom: var(--spacing-md);
     }
 
     .hero-research {
-      text-align: left;
+        margin-bottom: var(--spacing-md);
+        line-height: 1.8;
     }
-  }
+
+    .research-label {
+        font-weight: 600;
+        margin-right: var(--spacing-xs);
+    }
+
+    .research-tag {
+        color: var(--color-text);
+    }
+
+    .hero-links {
+        display: flex;
+        gap: var(--spacing-md);
+        flex-wrap: wrap;
+    }
+
+    .hero-link {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3em;
+    }
+
+    .hero-link:hover {
+        border-color: var(--color-accent);
+        text-decoration: none;
+    }
+
+    .about-text {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: var(--color-text);
+        white-space: pre-line;
+    }
+
+    .compact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        /* gap: var(--spacing-sm); */
+    }
+
+    .compact-item {
+        /* No border, just spacing */
+    }
+
+    .experience-header {
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .experience-year {
+        color: var(--color-accent);
+        font-weight: 600;
+        margin-right: var(--spacing-sm);
+    }
+
+    .experience-institution {
+        font-size: 1.1rem;
+    }
+
+    .experience-role {
+        color: var(--color-text-light);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .publication-item {
+        line-height: 1.8;
+    }
+
+    .publication-tag {
+        color: var(--color-accent);
+        font-weight: 600;
+        margin-right: var(--spacing-xs);
+    }
+
+    .publication-authors {
+        color: var(--color-text-light);
+    }
+
+    .award-item {
+        line-height: 1.8;
+    }
+
+    .award-year {
+        color: var(--color-accent);
+        font-weight: 600;
+        margin-right: var(--spacing-xs);
+    }
+
+    .award-name-zh {
+        color: var(--color-text-light);
+        font-size: 0.95rem;
+    }
+
+    .award-org {
+        color: var(--color-text-light);
+    }
+
+    @media (max-width: 768px) {
+        .hero-content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-image {
+            width: 200px;
+            height: 200px;
+        }
+
+        .hero-links {
+            justify-content: center;
+        }
+
+        .hero-research {
+            text-align: left;
+        }
+    }
 </style>

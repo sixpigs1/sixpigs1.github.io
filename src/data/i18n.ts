@@ -12,8 +12,8 @@ export const ui = {
         experience: 'Experience',
         publications: 'Publications / Preprints',
         selectedAwards: 'Awards',
-        morePublications: 'Details >>',
-        moreAwards: 'Details >>',
+        morePublications: 'Details',
+        moreAwards: 'Details',
     },
     publications: {
         title: 'Preprints / Publications',
