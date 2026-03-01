@@ -3,6 +3,6 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://YeZewei.github.io',
+    site: 'https://sixpigs1.github.io',
     integrations: [mdx()],
 });
