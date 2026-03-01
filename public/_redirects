@@ -1,6 +1,0 @@
-# Cloudflare Pages Redirects
-# Note: For advanced hotlink protection, enable it in Cloudflare Dashboard:
-# Scrape Shield -> Hotlink Protection -> ON
-
-# Example: redirect direct image access without referrer to homepage
-# (Cloudflare WAF rules are more reliable for this, see deployment guide)
