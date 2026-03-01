@@ -1,0 +1,34 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getSortedProjects } from "@/data/projects";
+
+const projects = getSortedProjects();
+---
+
+<BaseLayout title="Projects - Zewei Ye">
+    <h1 class="page-title">Projects</h1>
+
+    <section class="section">
+        {
+            projects.map((project) => (
+                <ProjectCard
+                    date={project.date}
+                    title={project.title}
+                    description={project.description}
+                    image={project.image}
+                    links={project.links}
+                />
+            ))
+        }
+    </section>
+</BaseLayout>
+
+<style>
+    .page-title {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-xl);
+        padding-bottom: var(--spacing-md);
+        border-bottom: 2px solid var(--color-border);
+    }
+</style>

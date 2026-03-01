@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Card from "@/components/Card.astro";
 import { personalInfo, experiences } from "@/data/personal";
 import { publications } from "@/data/publications";
 import { awards } from "@/data/awards";
+import { getSortedProjects } from "@/data/projects";
 import { ui } from "@/data/i18n";
 
 // Get all publications sorted by id descending
@@ -11,6 +11,9 @@ const allPublications = [...publications].sort((a, b) => b.id - a.id);
 
 // Get all awards sorted by id descending
 const allAwards = [...awards].sort((a, b) => b.id - a.id);
+
+// Get all projects sorted by id descending
+const allProjects = getSortedProjects();
 
 // Sort experiences by id descending
 const sortedExperiences = [...experiences].sort((a, b) => b.id - a.id);
@@ -40,25 +43,71 @@ const sortedExperiences = [...experiences].sort((a, b) => b.id - a.id);
                         ))
                     }
                 </div>
-                <div class="hero-links">
-                    <a href={`mailto:${personalInfo.email}`} class="hero-link">
-                        📧 Email
+
+                <!-- Contact Links -->
+                <div class="contact-links">
+                    <a
+                        href={`mailto:${personalInfo.email}`}
+                        class="contact-link"
+                        title="Email"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="2" y="4" width="20" height="16" rx="2"
+                            ></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
+                            ></path>
+                        </svg>
+                        Email
                     </a>
                     <a
                         href={personalInfo.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="hero-link"
+                        class="contact-link"
+                        title="GitHub"
                     >
-                        💻 GitHub
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"
+                            ></path>
+                        </svg>
+                        GitHub
                     </a>
                     <a
                         href={personalInfo.scholar}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="hero-link"
+                        class="contact-link"
+                        title="Google Scholar"
                     >
-                        🎓 Google Scholar
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"
+                            ></path>
+                        </svg>
+                        Google Scholar
                     </a>
                 </div>
             </div>
@@ -68,7 +117,27 @@ const sortedExperiences = [...experiences].sort((a, b) => b.id - a.id);
     <!-- About Section -->
     <section class="section">
         <h2 class="section-title">{ui.home.about}</h2>
-        <p class="about-text">{personalInfo.about}</p>
+        <div
+            class="about-text"
+            set:html={personalInfo.about
+                .replace(/\n/g, "<br/>")
+                .replace(
+                    "MINT-SJTU",
+                    '<a href="https://mint-sjtu.github.io/" target="_blank" rel="noopener noreferrer">MINT-SJTU</a>',
+                )
+                .replace(
+                    "Prof. Bo Zhao",
+                    '<a href="https://www.bozhao.me/home" target="_blank" rel="noopener noreferrer">Prof. Bo Zhao</a>',
+                )
+                .replace(
+                    "Global College",
+                    '<a href="https://gc.sjtu.edu.cn/" target="_blank" rel="noopener noreferrer">Global College</a>',
+                )
+                .replace(
+                    "School of Artificial Intelligence",
+                    '<a href="https://soai.sjtu.edu.cn/" target="_blank" rel="noopener noreferrer">School of AI</a>',
+                )}
+        />
     </section>
 
     <!-- Experience Section -->
@@ -141,6 +210,42 @@ const sortedExperiences = [...experiences].sort((a, b) => b.id - a.id);
         <a href="/publications" class="more-link">{ui.home.morePublications}</a>
     </section>
 
+    <!-- Projects Section -->
+    <section class="section">
+        <h2 class="section-title">{ui.home.projects}</h2>
+        <div class="compact-list">
+            {
+                allProjects.map((project) => (
+                    <div class="compact-item">
+                        <p class="publication-item">
+                            <span class="publication-tag">
+                                [{project.date}]
+                            </span>
+                            <strong>{project.title}</strong>
+                            {project.projectLink && (
+                                <>
+                                    {" "}
+                                    <a
+                                        href={project.projectLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        [Page]
+                                    </a>
+                                </>
+                            )}
+                            <br />
+                            <span class="publication-authors">
+                                {project.briefDescription}
+                            </span>
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
+        <a href="/projects" class="more-link">{ui.home.moreProjects}</a>
+    </section>
+
     <!-- Awards Section -->
     <section class="section">
         <h2 class="section-title">{ui.home.selectedAwards}</h2>
@@ -150,11 +255,17 @@ const sortedExperiences = [...experiences].sort((a, b) => b.id - a.id);
                     <div class="compact-item">
                         <p class="award-item">
                             <span class="award-year">[{award.year}]</span>
-                            <strong>{award.name}</strong>
-                            <span class="award-org">
-                                {" "}
-                                — {award.organization}
-                            </span>
+                            {award.category === "competition" ? (
+                                <span>
+                                    <span class="award-level">
+                                        {award.level}
+                                    </span>
+                                    <span class="award-sep"> — </span>
+                                    {award.name}
+                                </span>
+                            ) : (
+                                <span>{award.name}</span>
+                            )}
                         </p>
                     </div>
                 ))
@@ -252,11 +363,43 @@ const sortedExperiences = [...experiences].sort((a, b) => b.id - a.id);
         text-decoration: none;
     }
 
-    .about-text {
-        font-size: 1.05rem;
-        line-height: 1.8;
+    .contact-links {
+        display: flex;
+        gap: var(--spacing-md);
+        flex-wrap: wrap;
+        margin-top: var(--spacing-md);
+    }
+
+    .contact-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
         color: var(--color-text);
-        white-space: pre-line;
+        font-size: 0.9rem;
+        text-decoration: none;
+        padding: 4px 12px;
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        background: white;
+        transition:
+            border-color 0.15s,
+            color 0.15s,
+            background 0.15s;
+    }
+
+    .contact-link:hover {
+        color: var(--color-accent);
+        border-color: var(--color-accent);
+        background: #f5f8ff;
+        text-decoration: none;
+    }
+
+    .contact-link svg {
+        flex-shrink: 0;
+    }
+
+    .about-text {
+        line-height: 1.8;
     }
 
     .compact-list {
@@ -313,12 +456,17 @@ const sortedExperiences = [...experiences].sort((a, b) => b.id - a.id);
         margin-right: var(--spacing-xs);
     }
 
-    .award-name-zh {
-        color: var(--color-text-light);
-        font-size: 0.95rem;
+    .award-level {
+        font-weight: 600;
+        color: var(--color-text);
+        background: #f0f4ff;
+        border: 1px solid #c8d8ff;
+        border-radius: 4px;
+        padding: 0px 6px;
+        font-size: 0.9em;
     }
 
-    .award-org {
+    .award-sep {
         color: var(--color-text-light);
     }
 

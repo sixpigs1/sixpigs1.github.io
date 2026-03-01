@@ -4,9 +4,10 @@ export interface Award {
     id: number;
     category: 'academic' | 'competition';
     year: string;
-    name: string; // combined
-    organization?: string; // combined
-    description?: string; // combined
+    name: string;               // 学术奖项：奖项全名；竞赛奖项：比赛名称
+    level?: string;             // 竞赛奖项：奖项等级，如"全国一等奖"
+    organization?: string;
+    description?: string;
     image?: string;
 }
 
@@ -14,82 +15,86 @@ export const awards: Award[] = [
     {
         id: 1,
         category: 'competition',
-        year: '2022',
-        name: '第39届全国中学生物理竞赛浙江省二等奖',
-        organization: '浙江省物理学会',
-        image: '',
+        year: '2024-08',
+        name: 'China Robotics and Artificial Intelligence Competition (中国机器人及人工智能大赛)',
+        level: 'National First Prize (全国一等奖)',
+        organization: '中国机器人及人工智能大赛组委会',
+        image: '/images/awards/craic.png',
     },
     {
         id: 2,
         category: 'competition',
-        year: '2024',
-        name: '中国大学生机器人及人工智能大赛全国一等奖',
-        organization: '',
-        image: '/images/awards/robotics-competition.jpg',
+        year: '2024-08',
+        name: 'China University Aircraft Design Competition (中国大学生飞行器创新设计大赛)',
+        level: 'Provincial First Prize (东部赛区一等奖)',
+        organization: '中国航空学会',
+        image: '/images/awards/cuadc.png',
     },
     {
         id: 3,
-        category: 'competition',
-        year: '2024',
-        name: '中国大学生飞行器创新设计大赛东部赛区一等奖',
-        organization: '',
-        image: '/images/awards/national-scholarship.jpg',
+        category: 'academic',
+        year: '2024-12',
+        name: 'John Wu & Jane Sun Sunshine Scholarship (吴炯孙洁阳光奖学金)',
+        organization: 'UM-SJTU Joint Institute, Shanghai Jiao Tong University (上海交通大学密西根学院)',
+        image: '/images/awards/WJSJSun.png',
     },
     {
         id: 4,
         category: 'academic',
-        year: '2024',
-        name: '吴炯孙洁阳光奖学金',
-        organization: '',
-        image: '/images/awards/national-scholarship.jpg',
+        year: '2024-12',
+        name: 'Huatai Securities Technology Scholarship (华泰证券科技奖学金)',
+        organization: 'Shanghai Jiao Tong University (上海交通大学)',
+        image: '/images/awards/HuaTai.png',
     },
     {
         id: 5,
         category: 'academic',
-        year: '2024',
-        name: '华泰证券科技奖学金',
-        organization: '上海交通大学',
-        image: '/images/awards/national-scholarship.jpg',
+        year: '2024-12',
+        name: 'SJTU 2024 Undergraduate Merit Scholarship Grade B (上海交通大学 2023-2024 学年本科生B等优秀奖学金)',
+        organization: 'Shanghai Jiao Tong University (上海交通大学)',
+        image: '/images/awards/ExB2024.png',
     },
     {
         id: 6,
         category: 'competition',
-        year: '2024',
-        name: '"高教社杯"中国大学生数学建模竞赛上海市二等奖',
-        organization: '',
-        image: '/images/awards/national-scholarship.jpg',
+        year: '2024-12',
+        name: 'China University Mathematical Contest in Modeling (中国大学生数学建模竞赛)',
+        level: 'Provincial Second Prize (上海市二等奖)',
+        organization: '上海市工业与应用数学学会',
+        image: '/images/awards/cumcm.png',
     },
     {
         id: 7,
         category: 'competition',
-        year: '2025',
-        name: '数模美赛M奖',
-        organization: '',
-        image: '/images/awards/national-scholarship.jpg',
+        year: '2025-05',
+        name: 'Interdisciplinary Contest in Modeling (数模美赛)',
+        level: 'Meritorious Winner',
+        organization: 'Consortium for Mathematics and its Applications (COMAP)',
+        image: '/images/awards/icm.png',
     },
     {
         id: 8,
         category: 'academic',
-        year: '2025',
+        year: '2025-12',
         name: '吴贤铭崔德娴奖学金',
         organization: '上海交通大学浦江国际学院',
-        image: '/images/awards/national-scholarship.jpg',
+        image: '',
     },
     {
         id: 9,
         category: 'academic',
-        year: '2025',
+        year: '2025-12',
         name: '燕宝奖学金',
         organization: '上海交通大学，宁夏燕宝基金会',
-        image: '/images/awards/national-scholarship.jpg',
+        image: '',
     },
     {
         id: 10,
         category: 'academic',
-        year: '2025',
+        year: '2025-12',
         name: '上海交通大学优秀学生奖学金B等',
         organization: '上海交通大学',
-        image: '/images/awards/national-scholarship.jpg',
+        image: '',
     },
 ];
 
@@ -98,11 +103,4 @@ export function getAwardsByCategory(category: 'academic' | 'competition') {
     return awards
         .filter(award => award.category === category)
         .sort((a, b) => b.id - a.id);
-}
-
-// Helper function to get selected awards for home page (sorted by id descending)
-export function getSelectedAwards(limit: number = 3) {
-    return [...awards]
-        .sort((a, b) => b.id - a.id)
-        .slice(0, limit);
 }

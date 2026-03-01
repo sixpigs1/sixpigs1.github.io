@@ -1,0 +1,108 @@
+---
+interface Props {
+    title: string;
+    level?: string; // competition 奖项等级
+    year?: string;
+    organization?: string;
+    description?: string;
+    image?: string;
+}
+
+const { title, level, year, organization, description, image } = Astro.props;
+---
+
+<div class="award-card">
+    {
+        image && (
+            <div class="award-image">
+                <img src={image} alt={title} loading="lazy" />
+            </div>
+        )
+    }
+    <div class="award-content">
+        <h3 class="award-title">{title}</h3>
+        {level && <p class="award-level">{level}</p>}
+        <p class="award-meta">
+            {year}{organization ? ` — ${organization}` : ""}
+        </p>
+        {description && <p class="award-description">{description}</p>}
+    </div>
+</div>
+
+<style>
+    .award-card {
+        display: flex;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-lg);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-md);
+        background: white;
+    }
+
+    .award-image {
+        width: 270px;
+        min-width: 270px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #f5f5f5;
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+
+    .award-image img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+    }
+
+    .award-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .award-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-text);
+        margin: 0;
+    }
+
+    .award-level {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--color-text);
+        margin: 0;
+    }
+
+    .award-meta {
+        font-size: 0.9rem;
+        color: var(--color-text-light);
+        margin: 0;
+    }
+
+    .award-description {
+        font-size: 0.9rem;
+        color: var(--color-text-light);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    @media (max-width: 640px) {
+        .award-card {
+            flex-direction: column;
+        }
+        .award-image {
+            width: 100%;
+            min-width: unset;
+        }
+    }
+</style>

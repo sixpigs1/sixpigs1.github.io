@@ -4,6 +4,7 @@ export const ui = {
     nav: {
         home: 'Home',
         publications: 'Preprints / Publications',
+        projects: 'Projects',
         awards: 'Awards',
         journey: 'Journey',
     },
@@ -11,8 +12,10 @@ export const ui = {
         about: 'About',
         experience: 'Experience',
         publications: 'Publications / Preprints',
+        projects: 'Projects',
         selectedAwards: 'Awards',
         morePublications: 'Details',
+        moreProjects: 'Details',
         moreAwards: 'Details',
     },
     publications: {
@@ -25,8 +28,8 @@ export const ui = {
     },
     awards: {
         title: 'Awards',
-        academic: 'Academic Awards',
-        competitions: 'Competitions / Grants',
+        academic: 'Scholarships / Academic Awards',
+        competitions: 'Competitions',
     },
     journey: {
         title: 'Journey',

@@ -1,7 +1,15 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { journeyExperiences, reflections } from "@/data/journey";
+import JourneyCard from "@/components/JourneyCard.astro";
+import ReflectionCard from "@/components/ReflectionCard.astro";
+import {
+    getSortedJourneyExperiences,
+    getSortedReflections,
+} from "@/data/journey";
 import { ui } from "@/data/i18n";
+
+const journeyExperiences = getSortedJourneyExperiences();
+const reflections = getSortedReflections();
 ---
 
 <BaseLayout title="Journey - Zewei Ye">
@@ -12,45 +20,13 @@ import { ui } from "@/data/i18n";
         <h2 class="section-title">{ui.journey.beyondResearch}</h2>
         {
             journeyExperiences.map((exp) => (
-                <div class="journey-card">
-                    <details>
-                        <summary class="journey-summary">
-                            {exp.images && exp.images.length > 0 && (
-                                <img
-                                    src={exp.images[0]}
-                                    alt={exp.name}
-                                    class="journey-image"
-                                />
-                            )}
-                            <div class="journey-content">
-                                <h3 class="journey-title">
-                                    [{exp.year}] {exp.name}
-                                </h3>
-                                <p class="journey-description">
-                                    {exp.description}
-                                </p>
-                            </div>
-                        </summary>
-                        <div class="journey-expanded">
-                            {exp.expandedContent && (
-                                <p class="expanded-text">
-                                    {exp.expandedContent}
-                                </p>
-                            )}
-                            {exp.images && exp.images.length > 1 && (
-                                <div class="expanded-images">
-                                    {exp.images.slice(1).map((img) => (
-                                        <img
-                                            src={img}
-                                            alt={exp.name}
-                                            class="expanded-image"
-                                        />
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </details>
-                </div>
+                <JourneyCard
+                    year={exp.year}
+                    name={exp.name}
+                    description={exp.description}
+                    images={exp.images}
+                    expandedContent={exp.expandedContent}
+                />
             ))
         }
     </section>
@@ -60,12 +36,12 @@ import { ui } from "@/data/i18n";
         reflections.length > 0 && (
             <section class="section">
                 <h2 class="section-title">{ui.journey.reflections}</h2>
-                {reflections.map((reflection) => (
-                    <div class="reflection-card">
-                        <h3 class="reflection-title">{reflection.title}</h3>
-                        <p class="reflection-date">{reflection.date}</p>
-                        <p class="reflection-content">{reflection.content}</p>
-                    </div>
+                {reflections.map((r) => (
+                    <ReflectionCard
+                        title={r.title}
+                        date={r.date}
+                        content={r.content}
+                    />
                 ))}
             </section>
         )
@@ -78,118 +54,5 @@ import { ui } from "@/data/i18n";
         margin-bottom: var(--spacing-xl);
         padding-bottom: var(--spacing-md);
         border-bottom: 2px solid var(--color-border);
-    }
-
-    .journey-card {
-        margin-bottom: var(--spacing-md);
-        border: 1px solid var(--color-border);
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    .journey-summary {
-        display: flex;
-        gap: var(--spacing-md);
-        padding: var(--spacing-md);
-        cursor: pointer;
-        list-style: none;
-        transition: background-color 0.2s ease;
-    }
-
-    .journey-summary:hover {
-        background-color: #f9fafb;
-    }
-
-    .journey-summary::-webkit-details-marker {
-        display: none;
-    }
-
-    .journey-image {
-        flex-shrink: 0;
-        width: 200px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 4px;
-        background-color: #f5f5f5;
-    }
-
-    .journey-content {
-        flex: 1;
-    }
-
-    .journey-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: var(--spacing-xs);
-        color: var(--color-text);
-    }
-
-    .journey-description {
-        color: var(--color-text-light);
-        line-height: 1.6;
-    }
-
-    .journey-expanded {
-        padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
-        border-top: 1px solid var(--color-border);
-        background-color: #fafbfc;
-    }
-
-    .expanded-text {
-        line-height: 1.8;
-        margin-top: var(--spacing-md);
-        color: var(--color-text);
-    }
-
-    .expanded-images {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: var(--spacing-md);
-        margin-top: var(--spacing-md);
-    }
-
-    .expanded-image {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 4px;
-        background-color: #f5f5f5;
-    }
-
-    .reflection-card {
-        padding: var(--spacing-md);
-        border: 1px solid var(--color-border);
-        border-radius: 8px;
-        margin-bottom: var(--spacing-md);
-        background-color: #fafbfc;
-    }
-
-    .reflection-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin-bottom: var(--spacing-xs);
-        color: var(--color-text);
-    }
-
-    .reflection-date {
-        color: var(--color-text-light);
-        font-size: 0.9rem;
-        margin-bottom: var(--spacing-sm);
-    }
-
-    .reflection-content {
-        line-height: 1.8;
-        color: var(--color-text);
-    }
-
-    @media (max-width: 768px) {
-        .journey-summary {
-            flex-direction: column;
-        }
-
-        .journey-image {
-            width: 100%;
-            height: 200px;
-        }
     }
 </style>

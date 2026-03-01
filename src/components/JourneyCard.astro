@@ -1,0 +1,194 @@
+---
+interface Props {
+    year: string;
+    name: string;
+    description: string;
+    images?: string[];
+    expandedContent?: string;
+}
+
+const { year, name, description, images, expandedContent } = Astro.props;
+const coverImage = images?.[0];
+const extraImages = images && images.length > 1 ? images.slice(1) : [];
+
+function nl2br(text: string): string {
+    return text.replace(/\n/g, "<br/>");
+}
+---
+
+<div class="journey-card">
+    <details>
+        <summary class="journey-summary">
+            {
+                coverImage && (
+                    <div class="journey-cover">
+                        <img src={coverImage} alt={name} loading="lazy" />
+                    </div>
+                )
+            }
+            <div class="journey-content">
+                <h3 class="journey-title">
+                    <span class="journey-year">[{year}]</span>
+                    {name}
+                </h3>
+                <p class="journey-description" set:html={nl2br(description)} />
+                <span class="journey-expand-hint">Press to expand.</span>
+            </div>
+        </summary>
+
+        <div class="journey-expanded">
+            {
+                expandedContent && (
+                    <p
+                        class="expanded-text"
+                        set:html={nl2br(expandedContent)}
+                    />
+                )
+            }
+            {
+                extraImages.length > 0 && (
+                    <div class="expanded-images">
+                        {extraImages.map((img) => (
+                            <img
+                                src={img}
+                                alt={name}
+                                class="expanded-image"
+                                loading="lazy"
+                            />
+                        ))}
+                    </div>
+                )
+            }
+        </div>
+    </details>
+</div>
+
+<style>
+    .journey-card {
+        margin-bottom: var(--spacing-md);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+    }
+
+    .journey-summary {
+        display: flex;
+        gap: var(--spacing-md);
+        padding: var(--spacing-md);
+        cursor: pointer;
+        list-style: none;
+        transition: background-color 0.2s ease;
+        align-items: flex-start;
+    }
+
+    .journey-summary:hover {
+        background-color: #f9fafb;
+    }
+
+    .journey-summary::-webkit-details-marker {
+        display: none;
+    }
+
+    /* 展开后改变提示文字 */
+    details[open] .journey-expand-hint {
+        display: none;
+    }
+
+    .journey-cover {
+        flex-shrink: 0;
+        width: 320px;
+        height: 200px;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .journey-cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .journey-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .journey-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-text);
+        margin: 0;
+    }
+
+    .journey-year {
+        color: var(--color-accent);
+        font-weight: 600;
+    }
+
+    .journey-description {
+        color: var(--color-text-light);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .journey-expand-hint {
+        font-size: 0.75rem;
+        color: var(--color-accent);
+        margin-top: auto;
+    }
+
+    /* 展开区域 */
+    .journey-expanded {
+        padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+        border-top: 1px solid var(--color-border);
+        background-color: #fafbfc;
+    }
+
+    .expanded-text {
+        line-height: 1.8;
+        color: var(--color-text);
+        margin-bottom: var(--spacing-md);
+    }
+
+    /* 展开图片：四张一行 */
+    .expanded-images {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-sm);
+        margin-top: var(--spacing-sm);
+    }
+
+    .expanded-image {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 4px;
+        background: #f0f0f0;
+    }
+
+    @media (max-width: 900px) {
+        .journey-summary {
+            flex-direction: column;
+        }
+        .journey-cover {
+            width: 100%;
+            height: 200px;
+        }
+        .expanded-images {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .expanded-images {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+</style>

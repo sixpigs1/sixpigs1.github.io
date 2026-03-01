@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Card from "@/components/Card.astro";
+import PublicationCard from "@/components/PublicationCard.astro";
 import { getPublicationsByType } from "@/data/publications";
 import { ui } from "@/data/i18n";
 
@@ -17,23 +17,19 @@ const published = getPublicationsByType("publication");
             <section class="section">
                 <h2 class="section-title">{ui.publications.preprints}</h2>
                 {preprints.map((pub) => (
-                    <Card
+                    <PublicationCard
                         title={pub.title}
                         authors={pub.authors}
-                        meta={pub.status}
-                        description={pub.abstract}
-                        class="publication-card"
+                        status={pub.status}
+                        abstract={pub.abstract}
                         image={pub.image}
                         links={[
                             pub.paperLink && {
-                                text: ui.publications.paper,
+                                text: "Paper",
                                 url: pub.paperLink,
                             },
-                            pub.codeLink && {
-                                text: ui.publications.code,
-                                url: pub.codeLink,
-                            },
-                        ].filter(Boolean)}
+                            pub.codeLink && { text: "Code", url: pub.codeLink },
+                        ]}
                     />
                 ))}
             </section>
@@ -46,23 +42,19 @@ const published = getPublicationsByType("publication");
             <section class="section">
                 <h2 class="section-title">{ui.publications.published}</h2>
                 {published.map((pub) => (
-                    <Card
+                    <PublicationCard
                         title={pub.title}
                         authors={pub.authors}
-                        meta={pub.status}
-                        description={pub.abstract}
-                        class="publication-card"
+                        status={pub.status}
+                        abstract={pub.abstract}
                         image={pub.image}
                         links={[
                             pub.paperLink && {
-                                text: ui.publications.paper,
+                                text: "Paper",
                                 url: pub.paperLink,
                             },
-                            pub.codeLink && {
-                                text: ui.publications.code,
-                                url: pub.codeLink,
-                            },
-                        ].filter(Boolean)}
+                            pub.codeLink && { text: "Code", url: pub.codeLink },
+                        ]}
                     />
                 ))}
             </section>
