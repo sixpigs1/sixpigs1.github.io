@@ -52,7 +52,7 @@ export const journeyExperiences: Experience[] = [
     },
     {
         id: 6,
-        year: '2026-12',
+        year: '2025-12',
         name: 'Prof. Richard Sutton\'s Lecture at School of AI, SJTU',
         description: '强化学习领域的先驱 Richard Sutton 教授在上海交通大学人工智能学院的讲座，深入探讨了人工智能的发展趋势和挑战。',
         images: ['/images/journey/sutton/0.jpg', '/images/journey/sutton/1.jpg', '/images/journey/sutton/2.jpg'],

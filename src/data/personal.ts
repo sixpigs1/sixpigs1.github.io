@@ -13,7 +13,7 @@ export const personalInfo = {
     email: 'yzw758241@sjtu.edu.cn',
     github: 'https://github.com/sixpigs1',
     scholar: 'https://scholar.google.com/citations?user=6mVNnkMAAAAJ&hl=en',
-    photo: '/images/profile.jpg', // Placeholder
+    photo: '/images/profile.jpg',
     about: `Hello! I am Zewei Ye (叶泽玮), an undergraduate student at the Shanghai Jiao Tong University, affiliated with the Global College (formerly the UM-SJTU Joint Institute).
 
 My research focuses on embodied intelligence, with particular emphasis on vision-language-action (VLA) models and their deployment in real-world robotic systems. I am interested in improving the spatial reasoning and textual task understanding capabilities of VLA models, aiming to enhance their execution success rate, robustness, and generalization in practical applications. My work explores how multimodal representations and structured supervision can bridge the gap between high-level language instructions and low-level robotic control.
@@ -24,7 +24,7 @@ I am currently a research member of the MINT-SJTU Lab at the School of Artificia
 export const experiences = [
     {
         id: 1,
-        year: '2023 - Present',
+        year: '2023-09 - Present',
         institution: 'UM-SJTU Joint Institute (Global College after 2025), Shanghai Jiao Tong University',
         role: 'Undergraduate student, Major in Electrical and Computer Engineering',
         description: 'Working on research projects and coursework in ECE.'
