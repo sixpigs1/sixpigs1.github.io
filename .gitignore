@@ -71,3 +71,8 @@ coverage/
 
 # prompt docs
 design.md
+
+# others
+.nvmrc
+public/_headers
+public/_redirects
