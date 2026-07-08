@@ -11,12 +11,12 @@ const published = getPublicationsByType("publication");
 <BaseLayout title="Preprints / Publications - Zewei Ye">
     <h1 class="page-title">{ui.publications.title}</h1>
 
-    <!-- Preprints Section -->
+    <!-- Published Papers Section -->
     {
-        preprints.length > 0 && (
+        published.length > 0 && (
             <section class="section">
-                <h2 class="section-title">{ui.publications.preprints}</h2>
-                {preprints.map((pub) => (
+                <h2 class="section-title">{ui.publications.published}</h2>
+                {published.map((pub) => (
                     <PublicationCard
                         title={pub.title}
                         authors={pub.authors}
@@ -36,12 +36,12 @@ const published = getPublicationsByType("publication");
         )
     }
 
-    <!-- Published Papers Section -->
+    <!-- Preprints Section -->
     {
-        published.length > 0 && (
+        preprints.length > 0 && (
             <section class="section">
-                <h2 class="section-title">{ui.publications.published}</h2>
-                {published.map((pub) => (
+                <h2 class="section-title">{ui.publications.preprints}</h2>
+                {preprints.map((pub) => (
                     <PublicationCard
                         title={pub.title}
                         authors={pub.authors}

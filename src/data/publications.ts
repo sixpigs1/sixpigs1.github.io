@@ -19,12 +19,12 @@ export interface Publication {
 export const publications: Publication[] = [
     {
         id: 1,
-        type: 'preprint',
-        tag: 'Preprint 2025',
+        type: 'publication',
+        tag: 'WAICA 2026',
         year: '2025',
         title: 'RoboFAC: A Comprehensive Framework for Robotic Failure Analysis and Correction',
         authors: 'Zewei Ye, Weifeng Lu, Minghao Ye, Tao Lin, Shuo Yang, Junchi Yan, Bo Zhao',
-        status: 'Preprint, arXiv',
+        status: 'WAIC Academic 2026',
         abstract: 'Vision-Language-Action (VLA) models have recently advanced robotic manipulation by translating natural-language instructions and image information into sequential control actions. However, these models often underperform in open-world scenarios, as they are predominantly trained on successful expert demonstrations and exhibit a limited capacity for failure recovery. In this work, we present a Robotic Failure Analysis and Correction (RoboFAC) framework to address this issue. Firstly, we construct RoboFAC dataset comprising 9,440 erroneous manipulation trajectories and 78,623 QA pairs across 16 diverse tasks and 53 scenes in both simulation and real-world environments. Leveraging our dataset, we develop RoboFAC model, which is capable of Task Understanding, Failure Analysis and Failure Correction. Experimental results demonstrate that the RoboFAC model outperforms GPT-4o by 34.1% on our evaluation benchmark. Furthermore, we integrate the RoboFAC model into a real-world VLA control pipeline as an external supervision providing correction instructions, yielding a 29.1% relative improvement on average on four real-world tasks. The results show that our RoboFAC framework effectively handles robotic failures and assists the VLA model in recovering from failures.',
         image: '/images/publications/robofac0.png',
         paperLink: 'https://arxiv.org/abs/2505.12224',
