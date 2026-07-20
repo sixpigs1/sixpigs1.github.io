@@ -58,6 +58,14 @@ export const journeyExperiences: Experience[] = [
         images: ['/images/journey/sutton/0.jpg', '/images/journey/sutton/1.jpg', '/images/journey/sutton/2.jpg'],
         expandedContent: '',
     },
+    {
+        id: 7,
+        year: '2026-07',
+        name: 'WAICA 2026',
+        description: '参加 World Artificial Intelligence Conference · Academic (WAICA) 会议，为 RoboFAC 工作做汇报',
+        images: ['/images/journey/waica2026/0.jpg', '/images/journey/waica2026/1.jpg', '/images/journey/waica2026/2.jpg'],
+        expandedContent: '',
+    },
 ];
 
 export interface Reflection {
