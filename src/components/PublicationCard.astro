@@ -62,8 +62,7 @@ const validLinks = links.filter(Boolean) as Array<{
 
 <style>
     .pub-card {
-        display: flex;
-        gap: var(--spacing-lg);
+        display: flow-root;
         padding: var(--spacing-lg);
         border: 1px solid var(--color-border);
         border-radius: 8px;
@@ -72,8 +71,9 @@ const validLinks = links.filter(Boolean) as Array<{
     }
 
     .pub-image {
-        width: 360px;
-        min-width: 360px;
+        float: left;
+        width: clamp(200px, 45%, 600px);
+        margin: 0 var(--spacing-lg) var(--spacing-sm) 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -90,37 +90,34 @@ const validLinks = links.filter(Boolean) as Array<{
     }
 
     .pub-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-xs);
+        display: block;
     }
 
     .pub-title {
         font-size: 1.1rem;
         font-weight: 600;
         color: var(--color-text);
-        margin: 0;
+        margin: 0 0 var(--spacing-xs);
     }
 
     .pub-authors {
         font-size: 0.95rem;
         color: var(--color-text-light);
-        margin: 0;
+        margin: 0 0 var(--spacing-xs);
     }
 
     .pub-status {
         font-size: 0.85rem;
         color: var(--color-accent);
         font-style: italic;
-        margin: 0;
+        margin: 0 0 var(--spacing-xs);
     }
 
     .pub-abstract {
         font-size: 0.8rem;
         color: var(--color-text-light);
         line-height: 1.6;
-        margin: 0;
+        margin: 0 0 var(--spacing-xs);
     }
 
     .pub-links {
@@ -149,12 +146,10 @@ const validLinks = links.filter(Boolean) as Array<{
     }
 
     @media (max-width: 640px) {
-        .pub-card {
-            flex-direction: column;
-        }
         .pub-image {
+            float: none;
             width: 100%;
-            min-width: unset;
+            margin: 0 0 var(--spacing-md);
         }
     }
 </style>
