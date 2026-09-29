@@ -20,7 +20,7 @@ export const publications: Publication[] = [
     {
         id: 1,
         type: 'publication',
-        tag: 'WAICA 2026',
+        tag: 'WAIC Academic 2026',
         year: '2025',
         title: 'RoboFAC: A Comprehensive Framework for Robotic Failure Analysis and Correction',
         authors: 'Zewei Ye, Weifeng Lu, Minghao Ye, Tao Lin, Shuo Yang, Junchi Yan, Bo Zhao',
@@ -45,8 +45,8 @@ export const publications: Publication[] = [
     },
     {
         id: 3,
-        type: 'preprint',
-        tag: 'Preprint 2026',
+        type: 'publication',
+        tag: 'NeurIPS 2026',
         year: '2026',
         title: 'Evo-Depth: A Lightweight Depth-Enhanced Vision-Language-Action Model',
         authors: 'Tao Lin, Yuxin Du, Jiting Liu, Nuobei Zhu, Yunhe Li, Yuqian Fu, Yinxinyu Chen, Hongyi Cai, Zewei Ye, Bing Cheng, Kai Ye, Yiran Mao, Yilei Zhong, MingKang Dong, Junchi Yan, Gen Li, Bo Zhao',
