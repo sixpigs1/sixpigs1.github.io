@@ -69,6 +69,19 @@ export const publications: Publication[] = [
         paperLink: 'https://arxiv.org/abs/2606.27295',
         codeLink: 'https://github.com/MINT-SJTU/LA4VLA',
     },
+    {
+        id: 5,
+        type: 'preprint',
+        tag: 'Preprint 2026',
+        year: '2026',
+        title: 'Evo-DexBench: Benchmarking Generalization across Related Tasks for Dexterous Manipulation',
+        authors: 'Bing Cheng, Yiran Mao, Zewei Ye, Yifan Jin, Xinyi Chen, Ruifeng Tu, Shuhuai Wang, Tao Lin, Zhimu Zhou, Yuxin Du, Fangwei Zhong, Junchi Yan, Bo Zhao',
+        status: 'Preprint, arXiv',
+        abstract: 'General-purpose dexterous manipulation requires policies to transfer knowledge from related tasks to new tasks with only a few target demonstrations. Existing benchmarks often provide too many target demonstrations. They also leave the differences between source and target tasks uncontrolled. As a result, they cannot clearly distinguish knowledge transfer from task memorization. Our key insight is the Core-Gen principle. Core tasks are related tasks that share a functional interaction and provide source knowledge, while a Gen task is a novel target within the same functional family that has only a few demonstrations. This setup tests whether a policy can reuse functional interaction knowledge. Based on this principle, we propose Evo-DexBench, which controls both source-task relatedness and target-task exposure. It comprises 30 tasks in six functional families and a VR teleoperation pipeline. The resulting dataset covers three everyday scenes per task. It contains 1,248 multimodal demonstrations collected with simulated Shadow Hands equipped with 123 taxels. Experiments show that even the best-performing method achieves an average success rate of only 38.5%, highlighting the challenges existing methods face in transferring functional interaction knowledge. Further analysis shows that, across the two tasks, joint Core+Gen training improves performance by 12% and 38%, respectively, over training on Core followed by fine-tuning on Gen. This indicates that joint training makes better use of Core knowledge and that functionally matched Core data yields greater gains in success rate than mismatched data. We release the Evo-DexBench dataset and benchmark to support the evaluation of dexterous manipulation policies generalization across related tasks.',
+        image: '/images/publications/evo-dexbench0.png',
+        paperLink: 'https://arxiv.org/abs/2610.21180',
+        codeLink: 'https://github.com/MINT-SJTU/Evo-DexBench',
+    },
 ];
 
 // Helper function to get publications by type (sorted by id descending)
